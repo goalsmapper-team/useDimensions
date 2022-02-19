@@ -12,6 +12,7 @@
     "scripts": {
         "build": "npm run build:ts && nwb build-react-component",
         "build:ts": "tsc",
+        "prepare": "npm run build:ts && nwb build-react-component",
         "clean": "nwb clean-module",
         "start": "npm run build:ts && nwb serve-react-demo",
         "test": "nwb test",
