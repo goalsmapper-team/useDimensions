@@ -1,24 +1,26 @@
-import { useState, useCallback, useLayoutEffect } from "react";
-import { DimensionObject, UseDimensionsArgs, UseDimensionsHook } from "./types";
+import {useCallback, useLayoutEffect, useState} from "react";
+import {DimensionObject, UseDimensionsArgs, UseDimensionsHook} from "./types";
 
 function getDimensionObject(node: HTMLElement): DimensionObject {
     const rect = node.getBoundingClientRect();
 
+    // @ts-ignore
+    const {left, top} = rect;
     return {
         width: rect.width,
         height: rect.height,
-        top: "x" in rect ? rect.x : rect.top,
-        left: "y" in rect ? rect.y : rect.left,
-        x: "x" in rect ? rect.x : rect.left,
-        y: "y" in rect ? rect.y : rect.top,
+        top: "x" in rect ? rect.x : top,
+        left: "y" in rect ? rect.y : left,
+        x: "x" in rect ? rect.x : left,
+        y: "y" in rect ? rect.y : top,
         right: rect.right,
         bottom: rect.bottom
     };
 }
 
 function useDimensions({
-    liveMeasure = true
-}: UseDimensionsArgs = {}): UseDimensionsHook {
+                           liveMeasure = true
+                       }: UseDimensionsArgs = {}): UseDimensionsHook {
     const [dimensions, setDimensions] = useState({});
     const [node, setNode] = useState(null);
 
